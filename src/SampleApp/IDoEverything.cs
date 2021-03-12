@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace SampleApp
@@ -37,6 +38,16 @@ namespace SampleApp
             var externalData = System.Text.Json.JsonSerializer.Deserialize<List<SomeEntity>>(await response.Content.ReadAsStringAsync());
 
             await DatabaseManager.SaveEntities(externalData);
+        }
+
+        public async Task SendEmailToUser(User user)
+        {
+            var smtpClient = new SmtpClient("mysmtpserver.com")
+            {
+                EnableSsl = false
+            };
+
+            smtpClient.Send("sample@sampleapp.com", user.Email, "Friendly email",  $"Hello {user.Username}!");
         }
 
         private Task<bool> UserCanViewEntity(User user, SomeEntity entity)
