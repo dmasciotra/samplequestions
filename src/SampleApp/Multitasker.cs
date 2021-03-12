@@ -8,7 +8,7 @@ namespace SampleApp
     /// <summary>
     /// This class is power hungry and wants to do everything.
     /// </summary>
-    public class IDoEverything
+    public class Multitasker
     {
         public DatabaseManager DatabaseManager {get;set;}
 
